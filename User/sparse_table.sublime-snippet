@@ -1,0 +1,31 @@
+<snippet>
+	<content><![CDATA[
+const int N=400005;
+ll dp[30][N];
+ll lg[N+1];
+
+ll n,k;
+
+
+void precompute(){
+
+    for (int i = 2; i <= n; i++)
+    lg[i] = lg[i/2] + 1;
+
+    for (int i = 1; i <= k; i++)
+    for (int j = 0; j + (1 << i) <=n; j++)
+        dp[i][j] = __gcd(dp[i - 1][j], dp[i - 1][j + (1 << (i - 1))]);
+
+}
+
+ll get_result(ll L,ll R)
+{
+    int i = lg[R - L + 1];
+   return __gcd(dp[i][L], dp[i][R - (1 << i) + 1]);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>sparse_table</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

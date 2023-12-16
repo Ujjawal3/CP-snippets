@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+#define rep(i, n) for (long long i = 0; i < n; ++i)
+#define ll long long
+#define int long long
+#define all(v) v.begin(), v.end()
+#define IOS                       \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0)
+#define pb push_back
+#define ordered_multiset tree<ll, null_type,less_equal<ll>, rb_tree_tag,tree_order_statistics_node_update> 
+#define ordered_set tree<ll, null_type,less<ll>, rb_tree_tag,tree_order_statistics_node_update>
+#define MOD 99194853094755497
+
+using namespace std;
+
+
+
+void solve()
+{
+
+}
+
+signed main()
+{
+    IOS;
+    // cout<<fixed<<setprecision(10);
+    ll t = 1;
+    // cin>>t;
+    while (t--)
+        solve();
+    return 0;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>base</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
