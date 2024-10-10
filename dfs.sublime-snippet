@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+const int M=400005;
+vector<ll> adj[M];
+bool used[M];
+
+
+void dfs(int v) {
+    used[v] = true;
+
+    for (auto u : adj[v])
+        if (!used[u])
+            dfs(u);
+    return;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dfs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+const int N=1001;
+
+char in[N][N];
+bool used[N][N];
+ll n,m;
+
+
+void dfs(ll i,ll j)
+{
+    used[i][j]=true;
+
+    if(i>0 && in[i-1][j]=='.' && !used[i-1][j])
+        dfs(i-1,j);
+    if(j>0 && in[i][j-1]=='.' && !used[i][j-1])
+        dfs(i,j-1);
+    if(i+1<n && in[i+1][j]=='.' && !used[i+1][j])
+        dfs(i+1,j);
+    if(j+1<m && in[i][j+1]=='.' && !used[i][j+1])
+        dfs(i,j+1);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dfs_grid</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,81 @@
+<snippet>
+	<content><![CDATA[
+struct ele{
+    ll one_cnt;
+};
+
+struct seg_not_lazy{
+    ll sz=1;
+ 
+    vector<ele> t;
+    // 1 based indexing segtree //
+    // 0 based indexing array //
+ 
+    ll ide=0;
+    ele opr(ele a,ele b){
+        return {a.one_cnt+b.one_cnt};
+    }
+ 
+    void init(ll n){
+        while(sz<n) sz*=2;
+        t.assign(2*sz,{ide});
+    }
+ 
+    void build(vector<ll> &a, ll v, ll tl, ll tr) {
+        if (tl == tr) {
+            if(tl <= a.size()) t[v] = {a[tl - 1]};
+        } else {
+            ll tm = (tl + tr) / 2;
+            build(a, v*2, tl, tm);
+            build(a, v*2+1, tm+1, tr);
+            t[v] =  opr (t[v*2] , t[v*2+1]);
+        }
+    }
+ 
+    void build(vector<ll> &a){
+        build(a,1,1,sz);
+    }
+
+ 
+    void update(ll v, ll tl, ll tr, ll l, ll r) {
+        if (l > r) 
+            return;
+        if (l == tl && tr == r) {
+            t[v] = {(1+t[v].one_cnt)%2};
+        } else {
+            ll tm = (tl + tr) / 2;
+            update(v*2, tl, tm, l, min(r, tm));
+            update(v*2+1, tm+1, tr, max(l, tm+1),r);
+            t[v] = opr(t[v*2], t[v*2+1]);
+        }
+    }
+ 
+    void update(ll l, ll r){
+        update(1, 1, sz, l, r);
+    }
+ 
+    ele query(ll v, ll tl, ll tr, ll k) {
+        
+        if(t[v].one_cnt<k)
+            return {-1};
+        if (tl==tr)
+            return {tl};
+        
+        ll tm = (tl + tr) / 2;
+        ll tri=query(v*2, tl, tm, k).one_cnt;
+        if(tri!=-1)
+        return  {tri};
+        return query(v*2+1, tm+1, tr, k-t[2*v].one_cnt);
+    }
+ 
+    ele query(ll k){
+        return query(1, 1, sz, k);
+    }
+ 
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>kth_one_seg_tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

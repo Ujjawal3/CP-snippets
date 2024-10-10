@@ -1,0 +1,87 @@
+<snippet>
+	<content><![CDATA[
+const int M=2e5+5;
+vector<ll> adj[M], adj_rev[M];
+vector<bool> used(M);
+vector<int> order, component;
+
+void dfs1(int v) {
+    used[v] = true;
+
+    for (auto u : adj[v])
+        if (!used[u])
+            dfs1(u);
+
+    order.push_back(v);
+}
+
+void dfs2(int v) {
+    used[v] = true;
+    component.push_back(v);
+
+    for (auto u : adj_rev[v])
+        if (!used[u])
+            dfs2(u);
+}
+
+void solve()
+{
+    int n,m;
+    
+    cin>>n>>m;
+    
+    rep(i,n)
+    {
+        adj[i+1].clear();
+        adj_rev[i+1].clear();
+        order.clear();
+        component.clear();
+    }
+
+    for (ll i=0;i<m;i++) {
+        int a, b;
+        cin>>a>>b;
+        adj[a].push_back(b);
+        adj_rev[b].push_back(a);
+    }
+
+    used.assign(n+1, false);
+    
+
+    for (int i = 1; i <= n; i++)
+        if (!used[i])
+            dfs1(i);
+
+    used.assign(n+1, false);
+    reverse(order.begin(), order.end());
+      
+    vector<int> roots(n+1, 0);
+    vector<int> root_nodes;
+    vector<int> adj_scc[n+1];
+
+    for (auto v : order)
+    if (!used[v]) {
+        dfs2(v);
+
+        int root = component.front();
+        for (auto u : component) roots[u] = root;
+        root_nodes.push_back(root);
+        component.clear();
+    }
+
+
+    for (int v = 1; v <= n; v++)
+        for (auto u : adj[v]) {
+            int root_v = roots[v],
+            root_u = roots[u];
+
+        if (root_u != root_v)
+            adj_scc[root_v].push_back(root_u);
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>KosaRaju</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

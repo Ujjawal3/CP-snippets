@@ -1,0 +1,43 @@
+<snippet>
+	<content><![CDATA[
+        ll tmp=wei[i].size();
+        
+        
+        for(ll j=0;j<tmp-1;j++)
+        {
+            wei[i].pb(lca(wei[i][j], wei[i][j+1]));
+        }
+        
+        
+        sort(wei[i].begin(), wei[i].end(), [](ll x, ll y)->bool{return tin[x]<tin[y];});
+        
+        wei[i].resize(unique(wei[i].begin(), wei[i].end()) - wei[i].begin());
+        
+        vector<ll> st;
+        st.pb(wei[i][0]);
+        
+        for(ll j=1;j<wei[i].size();j++)
+        {
+            while(st.size()>=2 && !is_ancestor(wei[i][j], st.back())){
+                nadj[st[st.size()-2]].pb(st.back());
+                st.pop_back();
+            }
+            st.pb(wei[i][j]);
+        }
+        
+        while(st.size()>=2)
+        {
+            nadj[st[st.size()-2]].pb(st.back());
+            st.pop_back();
+        }
+        
+        dfs1(st[0], i);
+        
+        for(auto x: wei[i])
+            nadj[x].clear();
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>v_tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
